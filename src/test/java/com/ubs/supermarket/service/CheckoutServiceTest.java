@@ -2,11 +2,14 @@ package com.ubs.supermarket.service;
 
 import com.google.inject.Inject;
 import com.ubs.supermarket.Configure;
+import com.ubs.supermarket.exception.InvalidArrayLenthException;
 import com.ubs.supermarket.model.Item;
 import com.ubs.supermarket.model.Order;
 import org.jukito.JukitoModule;
 import org.jukito.JukitoRunner;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -29,6 +32,9 @@ public class CheckoutServiceTest {
     @Inject
     private OrderService orderService;
 
+    @Rule
+    public ExpectedException exceptionGrabber = ExpectedException.none();
+
     @Test
     public void testSpecialPrice() {
         // positive case's
@@ -45,7 +51,14 @@ public class CheckoutServiceTest {
     }
 
     @Test
-    public void testSpecialPriceException() {
+    public void testSpecialPriceThrowException() {
+        Item item1 = Item.of(1L, "Shampoo", new BigDecimal("4.00"), "3     For  2");
+        // throw exception because of spaces
+        exceptionGrabber.expect(InvalidArrayLenthException.class);
+        BigDecimal price = calcSpecialPrice(item1, 4);
+        // set wrong field format and except NumberFormat exception
+        exceptionGrabber.expect(NumberFormatException.class);
+        Item.of(3L, "Beer", new BigDecimal("USD"), "3 For 2");
     }
 
     @Test
@@ -54,13 +67,13 @@ public class CheckoutServiceTest {
         Item item2 = Item.of(2L, "Potato", new BigDecimal("3.00"), "3 For 2");
         itemService.saveItem(item1);
         itemService.saveItem(item2);
-        Map<Item, Integer> itemStoreMap = new LinkedHashMap<Item, Integer>();
+        Map<Item, Integer> itemStoreMap = new LinkedHashMap<>();
         itemStoreMap.put(item1, 3);
         itemStoreMap.put(item2, 4);
         Order order = Order.of(1L, itemStoreMap);
         orderService.saveOrder(order);
         Order persOrder = orderService.loadOrder(order.getOrderId());
-        BigDecimal price = checkoutService.calculateOrderPrice(order.getOrderId());
+        BigDecimal price = checkoutService.calculateOrderPrice(persOrder.getOrderId());
         assertThat(price, is(new BigDecimal("7.00")));
     }
 

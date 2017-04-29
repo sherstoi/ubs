@@ -1,7 +1,11 @@
 package com.ubs.supermarket.exception;
 
 /**
- * Created by iurii on 4/28/17.
+ * This class represent exception which
+ * thrown when there are too much spaces
+ * in field.
+ * @Author Iurii
+ * @Version 1.0
  */
 public class InvalidArrayLenthException extends RuntimeException {
 

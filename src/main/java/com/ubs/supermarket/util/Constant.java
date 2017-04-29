@@ -1,7 +1,9 @@
 package com.ubs.supermarket.util;
 
 /**
- * Created by iurii on 4/28/17.
+ * Use this class for new constant.
+ * Group constant by different inner
+ * classes.
  */
 public final class Constant {
 

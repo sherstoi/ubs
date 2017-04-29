@@ -1,11 +1,13 @@
-package com.ubs.supermarket.service;
+package com.ubs.supermarket.service.impl;
 
 import com.google.inject.Inject;
-import com.ubs.supermarket.Repository.ItemStore;
-import com.ubs.supermarket.Repository.OrderStore;
+import com.google.inject.Singleton;
 import com.ubs.supermarket.exception.InvalidArrayLenthException;
 import com.ubs.supermarket.model.Item;
 import com.ubs.supermarket.model.Order;
+import com.ubs.supermarket.service.CheckoutService;
+import com.ubs.supermarket.service.ItemService;
+import com.ubs.supermarket.service.OrderService;
 import com.ubs.supermarket.util.Constant;
 
 import java.math.BigDecimal;
@@ -17,8 +19,12 @@ import static com.ubs.supermarket.util.CollectionUtil.isArrLengthIsEqual;
 import static com.ubs.supermarket.util.CollectionUtil.isNullOrEmpty;
 
 /**
- * Created by iurii on 4/28/17.
+ * This class represent supermarket checkout
+ * service. It's <B>singleton</B> class.
+ * @author Iurii
+ * @Version 1.0
  */
+@Singleton
 public class CheckoutServiceImpl implements CheckoutService {
     private ItemService itemService;
     private OrderService orderService;
@@ -73,7 +79,7 @@ public class CheckoutServiceImpl implements CheckoutService {
     }
 
     private List<String> parseSpecCountAndSpecPrice(String specCountAndPriceStr) {
-        List<String> specPriceCountList = new ArrayList<String>();
+        List<String> specPriceCountList = new ArrayList<>();
         if (specCountAndPriceStr != null) {
             String[] arrPriceAndCount = specCountAndPriceStr.split(Constant.ParseSymbol.ONE_SPACE_SYMBOL);
             if (isArrLengthIsEqual(arrPriceAndCount, Constant.Digits.THREE)) {

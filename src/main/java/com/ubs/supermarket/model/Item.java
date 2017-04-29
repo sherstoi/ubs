@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Created by iurii on 4/28/17.
+ * This class represent Item entity.
+ * @Author Iurii
+ * @Version 1.0
  */
 public class Item {
 

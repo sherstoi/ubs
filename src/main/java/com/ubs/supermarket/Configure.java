@@ -2,13 +2,20 @@ package com.ubs.supermarket;
 
 import com.google.inject.AbstractModule;
 import com.ubs.supermarket.Repository.ItemStore;
-import com.ubs.supermarket.Repository.ItemStoreImpl;
+import com.ubs.supermarket.Repository.impl.ItemStoreImpl;
 import com.ubs.supermarket.Repository.OrderStore;
-import com.ubs.supermarket.Repository.OrderStoreImpl;
+import com.ubs.supermarket.Repository.impl.OrderStoreImpl;
 import com.ubs.supermarket.service.*;
+import com.ubs.supermarket.service.impl.CheckoutServiceImpl;
+import com.ubs.supermarket.service.impl.ItemServiceImpl;
+import com.ubs.supermarket.service.impl.OrderServiceImpl;
 
 /**
- * Created by iurii on 4/28/17.
+ * In case you have additional modules
+ * please add them to this <B>configurable</B>
+ * class. Guice link classes to their
+ * interfaces and provide all objects
+ * when needed.
  */
 public class Configure extends AbstractModule {
 

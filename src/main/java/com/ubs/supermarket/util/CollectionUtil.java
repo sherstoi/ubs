@@ -4,7 +4,8 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * Created by iurii on 4/28/17.
+ * Utils methods to work with
+ * java collections.
  */
 public class CollectionUtil {
 

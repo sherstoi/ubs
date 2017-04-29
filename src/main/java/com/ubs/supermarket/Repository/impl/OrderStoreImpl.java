@@ -1,12 +1,16 @@
-package com.ubs.supermarket.Repository;
+package com.ubs.supermarket.Repository.impl;
 
+import com.ubs.supermarket.Repository.OrderStore;
 import com.ubs.supermarket.model.Order;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by iurii on 4/28/17.
+ * This class gives DAO method to work
+ * with Order entity.
+ * @Author Iurii
+ * @Version 1.0
  */
 public class OrderStoreImpl implements OrderStore {
     private final Map<Long, Order> orderStorage = new HashMap<Long, Order>();
@@ -14,6 +18,8 @@ public class OrderStoreImpl implements OrderStore {
     public void delete(Long orderId) {
         orderStorage.remove(orderId);
     }
+
+    public void deleteAll() {orderStorage.clear();};
 
     public Order load(Long orderId) {
         return orderStorage.get(orderId);
@@ -25,5 +31,10 @@ public class OrderStoreImpl implements OrderStore {
         }
         orderStorage.put(order.getOrderId(), order);
         return order;
+    }
+
+    @Override
+    public int getOrderCacheSize() {
+        return orderStorage.size();
     }
 }
